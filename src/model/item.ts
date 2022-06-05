@@ -1,6 +1,12 @@
 import { AxiosInstance } from "axios";
 import { GorseException } from "../error";
-import { CursorOptions, Success, Item, ItemCursor } from "../interfaces";
+import {
+  CursorOptions,
+  Success,
+  Item,
+  ItemCursor,
+  ItemNeighborsOptions,
+} from "../interfaces";
 
 export function insertItem(itemData: Item, axios: AxiosInstance) {
   return axios
@@ -105,6 +111,23 @@ export function insertItems(items: Item[], axios: AxiosInstance) {
     .post<Success>(`/items`, items)
     .then(({ data }) => {
       return data.RowAffected;
+    })
+    .catch((exception) => {
+      const { response } = exception;
+      throw new GorseException(response.status, response.data);
+    });
+}
+
+export function getItemNeighbors(
+  { ItemId, category = "", cursorOptions }: ItemNeighborsOptions,
+  axios: AxiosInstance
+) {
+  return axios
+    .get<string[]>(`/item/${ItemId}/neighbors/${category}`, {
+      params: cursorOptions,
+    })
+    .then(({ data }) => {
+      return data;
     })
     .catch((exception) => {
       const { response } = exception;

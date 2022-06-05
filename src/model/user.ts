@@ -79,3 +79,15 @@ export function insertUsers(users: User[], axios: AxiosInstance) {
       throw new GorseException(response.status, response.data);
     });
 }
+
+export function getUserNeighbors(userId: string, axios: AxiosInstance) {
+  return axios
+    .get<string[]>(`/user/${userId}/neighbors`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((exception) => {
+      const { response } = exception;
+      throw new GorseException(response.status, response.data);
+    });
+}

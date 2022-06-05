@@ -12,6 +12,23 @@ export interface Success {
 
 export type DateTime = Date | string;
 
+export interface PopularOptions {
+  category?: string;
+  cursorOptions?: OffsetCursorOptions;
+}
+
+export interface RecommendOptions {
+  UserId: string;
+  category?: string;
+  cursorOptions?: OffsetCursorOptions;
+}
+
+export interface ItemNeighborsOptions {
+  ItemId: string;
+  category?: string;
+  cursorOptions?: OffsetCursorOptions;
+}
+
 // Entities
 export interface User {
   UserId: string;
@@ -36,9 +53,17 @@ export interface Feedback<K extends string> {
 }
 
 // Cursors
-export interface CursorOptions {
-  Cursor: string;
-  n: number;
+
+export interface BasicCursorOptions {
+  n?: number;
+}
+
+export interface OffsetCursorOptions extends BasicCursorOptions {
+  offset?: number;
+}
+
+export interface CursorOptions extends BasicCursorOptions {
+  Cursor?: string;
 }
 
 export interface ItemCursor {

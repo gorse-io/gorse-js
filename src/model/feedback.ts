@@ -1,73 +1,78 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosResponse } from "axios";
 import { GorseException } from "../error";
 import {
   CursorOptions,
   Feedback,
   FeedbackCursor,
+  FeedbackFilter,
+  FeedbackOptions,
+  FeedbackTypeFilter,
   Success,
 } from "../interfaces";
 
 export function getFeedback<T extends string>(
-  type: T,
-  UserId: string,
-  ItemId: string,
-  options: CursorOptions,
-  axios: AxiosInstance
+  axios: AxiosInstance,
+  { type, userId, itemId, cursorOptions }: FeedbackOptions<T>
 ) {
   return axios
-    .get<Feedback<T>>(`/feedback/${type}/${UserId}/${ItemId}`, {
-      params: options,
-    })
+    .get<Feedback<T>, AxiosResponse<Feedback<T>>>(
+      `/feedback/${type}/${userId}/${itemId}`,
+      {
+        params: cursorOptions,
+      }
+    )
     .then(({ data }) => {
       return data;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
 export function deleteFeedback<T extends string>(
-  type: T,
-  UserId: string,
-  ItemId: string,
-  axios: AxiosInstance
+  axios: AxiosInstance,
+  { type, userId, itemId }: FeedbackFilter<T>
 ) {
   return axios
-    .delete<Feedback<T>>(`/feedback/${type}/${UserId}/${ItemId}`)
+    .delete<Feedback<T>, AxiosResponse<Feedback<T>>>(
+      `/feedback/${type}/${userId}/${itemId}`
+    )
     .then(({ data }) => {
       return data;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
 export function getFeedbacksByType<T extends string>(
-  type: T,
-  options: CursorOptions,
-  axios: AxiosInstance
+  axios: AxiosInstance,
+  { type, cursorOptions }: FeedbackTypeFilter<T>
 ) {
   return axios
-    .get<FeedbackCursor<T>>(`/feedback/${type}`, {
-      params: options,
-    })
+    .get<FeedbackCursor<T>, AxiosResponse<FeedbackCursor<T>>>(
+      `/feedback/${type}`,
+      {
+        params: cursorOptions,
+      }
+    )
     .then(({ data }) => {
       return data;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
 export function getFeedbacks<T extends string>(
-  options: CursorOptions,
-  axios: AxiosInstance
+  axios: AxiosInstance,
+  options?: CursorOptions
 ) {
   return axios
-    .get<FeedbackCursor<T>>(`/feedback`, {
+    .get<FeedbackCursor<T>, AxiosResponse<FeedbackCursor<T>>>(`/feedback`, {
       params: options,
     })
     .then(({ data }) => {
@@ -75,37 +80,37 @@ export function getFeedbacks<T extends string>(
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
 export function insertFeedbacks<T extends string>(
-  feedbacksData: Feedback<T>[],
-  axios: AxiosInstance
+  axios: AxiosInstance,
+  feedbacksList: Feedback<T>[]
 ) {
   return axios
-    .post<Success>(`/feedback`, feedbacksData)
+    .post<Success, AxiosResponse<Success>>(`/feedback`, feedbacksList)
     .then(({ data }) => {
       return data.RowAffected;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
 export function upsertFeedbacks<T extends string>(
-  feedbacksData: Feedback<T>[],
-  axios: AxiosInstance
+  axios: AxiosInstance,
+  feedbacksList: Feedback<T>[]
 ) {
   return axios
-    .put<Success>(`/feedback`, feedbacksData)
+    .put<Success, AxiosResponse<Success>>(`/feedback`, feedbacksList)
     .then(({ data }) => {
       return data.RowAffected;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 

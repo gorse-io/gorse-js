@@ -1,62 +1,69 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosResponse } from "axios";
 import { GorseException } from "../error";
-import { CursorOptions, Success, User, UserCursor } from "../interfaces";
+import {
+  CursorOptions,
+  Success,
+  User,
+  UserCursor,
+  UserNeighborsOptions,
+} from "../interfaces";
 
-export function insertUser(userData: User, axios: AxiosInstance) {
+// FIXME: is this an upsert endpoint?
+export function insertUser(axios: AxiosInstance, userData: User) {
   return axios
-    .post<Success>(`/user`, userData)
+    .post<Success, AxiosResponse<Success>>(`/user`, userData)
     .then(({ data }) => {
       return data.RowAffected;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
-export function getUser(userId: string, axios: AxiosInstance) {
+export function getUser(axios: AxiosInstance, userId: string) {
   return axios
-    .get<User>(`/user/${userId}`)
+    .get<User, AxiosResponse<User>>(`/user/${userId}`)
     .then(({ data }) => {
       return data;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
-export function deleteUser(userId: string, axios: AxiosInstance) {
+export function deleteUser(axios: AxiosInstance, userId: string) {
   return axios
-    .delete<Success>(`/user/${userId}`)
+    .delete<Success, AxiosResponse<Success>>(`/user/${userId}`)
     .then(({ data }) => {
       return data.RowAffected;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
 export function updateUser(
+  axios: AxiosInstance,
   userId: string,
-  userData: User,
-  axios: AxiosInstance
+  userData: User
 ) {
   return axios
-    .patch<Success>(`/user/${userId}`, userData)
+    .patch<Success, AxiosResponse<Success>>(`/user/${userId}`, userData)
     .then(({ data }) => {
       return data.RowAffected;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
-export function getUsers(options: CursorOptions, axios: AxiosInstance) {
+export function getUsers(axios: AxiosInstance, options?: CursorOptions) {
   return axios
-    .get<UserCursor>(`/users`, {
+    .get<UserCursor, AxiosResponse<UserCursor>>(`/users`, {
       params: options,
     })
     .then(({ data }) => {
@@ -64,30 +71,36 @@ export function getUsers(options: CursorOptions, axios: AxiosInstance) {
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
-export function insertUsers(users: User[], axios: AxiosInstance) {
+// FIXME: is this an endpoint?
+export function insertUsers(axios: AxiosInstance, users: User[]) {
   return axios
-    .post<Success>(`/users`, users)
+    .post<Success, AxiosResponse<Success>>(`/users`, users)
     .then(({ data }) => {
       return data.RowAffected;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
-export function getUserNeighbors(userId: string, axios: AxiosInstance) {
+export function getUserNeighbors(
+  axios: AxiosInstance,
+  { userId, cursorOptions }: UserNeighborsOptions
+) {
   return axios
-    .get<string[]>(`/user/${userId}/neighbors`)
+    .get<string[], AxiosResponse<string[]>>(`/user/${userId}/neighbors`, {
+      params: cursorOptions,
+    })
     .then(({ data }) => {
       return data;
     })
     .catch((exception) => {
       const { response } = exception;
-      throw new GorseException(response.status, response.data);
+      return Promise.reject(new GorseException(response.status, response.data));
     });
 }

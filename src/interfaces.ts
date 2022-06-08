@@ -12,21 +12,48 @@ export interface Success {
 
 export type DateTime = Date | string;
 
+export interface LatestOutput {
+  Id: string;
+  Score: number;
+}
+
 export interface PopularOptions {
   category?: string;
   cursorOptions?: OffsetCursorOptions;
 }
 
 export interface RecommendOptions {
-  UserId: string;
+  userId: string;
   category?: string;
+  writeBackType?: string;
+  writeBackDelay?: string;
   cursorOptions?: OffsetCursorOptions;
 }
 
 export interface ItemNeighborsOptions {
-  ItemId: string;
+  itemId: string;
   category?: string;
   cursorOptions?: OffsetCursorOptions;
+}
+
+export interface UserNeighborsOptions {
+  userId: string;
+  cursorOptions?: OffsetCursorOptions;
+}
+
+export interface FeedbackFilter<T> {
+  type: T;
+  userId: string;
+  itemId: string;
+}
+
+export interface FeedbackTypeFilter<T> {
+  type: T;
+  cursorOptions?: CursorOptions;
+}
+
+export interface FeedbackOptions<T> extends FeedbackFilter<T> {
+  cursorOptions?: CursorOptions;
 }
 
 // Entities

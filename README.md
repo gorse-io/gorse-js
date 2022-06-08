@@ -26,5 +26,5 @@ const client = new Gorse({
   endpoint: "http://127.0.0.1:8087",
   secret: "api_key",
 });
-client.getRecommend('zhenghaoz')
+const reccomends = await client.getRecommend({userId: 'zhenghaoz'})
 ```

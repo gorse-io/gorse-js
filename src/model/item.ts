@@ -63,7 +63,7 @@ export function updateItem(
 export function insertItemCategory(
   axios: AxiosInstance,
   itemId: string,
-  category: String
+  category: string
 ) {
   return axios
     .put<Success, AxiosResponse<Success>>(
@@ -81,7 +81,7 @@ export function insertItemCategory(
 export function deleteItemCategory(
   axios: AxiosInstance,
   itemId: string,
-  category: String
+  category: string
 ) {
   return axios
     .delete<Success, AxiosResponse<Success>>(

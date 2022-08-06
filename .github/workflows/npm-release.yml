@@ -1,0 +1,15 @@
+name: Publish to NPM
+on:
+  release:
+    types: [published]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: publish

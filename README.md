@@ -1,4 +1,4 @@
-# GorseJS
+# gorse.js
 
 Javascript SDK for gorse recommender system.
 

@@ -2,6 +2,8 @@
   "name": "gorsejs",
   "description": "",
   "version": "0.4.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "repository": "git://github.com/gorse-io/gorse-js",
   "homepage": "https://github.com/gorse-io/gorse-js",

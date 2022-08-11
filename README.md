@@ -24,11 +24,12 @@ yarn add gorsejs
 Create a client by the entrypoint and api key.
 
 ```js
-import { Gorse } from "GorseJs";
+import { Gorse } from "gorsejs";
 
 const client = new Gorse({
   endpoint: "http://127.0.0.1:8087",
   secret: "api_key",
 });
+
 const reccomends = await client.getRecommend({userId: 'zhenghaoz'})
 ```

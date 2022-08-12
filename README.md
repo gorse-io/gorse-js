@@ -1,10 +1,9 @@
 # gorse.js
 
-[![CI](https://github.com/gorse-io/gorse-js/actions/workflows/ci.yml/badge.svg)](https://github.com/gorse-io/gorse-js/actions/workflows/ci.yml)
-![](https://img.shields.io/npm/v/gorsejs)
-
-
 TypeScript SDK for Gorse recommender system.
+
+[![CI](https://github.com/gorse-io/gorse-js/actions/workflows/ci.yml/badge.svg)](https://github.com/gorse-io/gorse-js/actions/workflows/ci.yml)
+[![](https://img.shields.io/npm/v/gorsejs)](https://www.npmjs.com/package/gorsejs)
 
 ## Install
 

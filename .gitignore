@@ -247,3 +247,6 @@ fabric.properties
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn,node,webstorm+all
+
+# Npmignore
+.npmignore

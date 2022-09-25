@@ -982,7 +982,7 @@ asynckit@^0.4.0:
 
 axios-logger@^2.6.1:
   version "2.6.1"
-  resolved "https://registry.npmjs.org/axios-logger/-/axios-logger-2.6.1.tgz"
+  resolved "https://registry.yarnpkg.com/axios-logger/-/axios-logger-2.6.1.tgz#2d251bc9902810e5ce4b9f0375a0e663b822379a"
   integrity sha512-eWyd9n9YtjwD+NWh1gVeuGIoR9AsNsNO2Cr7JLw/6CiM3wvRwaU0fr7Rub6+lD9OwBMNFlzkBGBmiQZOOp/rOA==
   dependencies:
     chalk "^4.1.0"

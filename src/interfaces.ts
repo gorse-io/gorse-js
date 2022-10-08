@@ -17,6 +17,11 @@ export interface LatestOutput {
   Score: number;
 }
 
+export interface PopularOutput {
+  Id: string;
+  Score: number;
+}
+
 export interface PopularOptions {
   category?: string;
   cursorOptions?: OffsetCursorOptions;

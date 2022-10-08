@@ -1,15 +1,23 @@
 import { AxiosInstance, AxiosResponse } from "axios";
 import { GorseException } from "../error";
-import { LatestOutput, PopularOptions, RecommendOptions } from "../interfaces";
+import {
+  LatestOutput,
+  PopularOptions,
+  PopularOutput,
+  RecommendOptions,
+} from "../interfaces";
 
 export function getPopular(
   axios: AxiosInstance,
   { category = "", cursorOptions }: PopularOptions
 ) {
   return axios
-    .get<string[], AxiosResponse<string[]>>(`/popular/${category}`, {
-      params: cursorOptions,
-    })
+    .get<PopularOutput[], AxiosResponse<PopularOutput[]>>(
+      `/popular/${category}`,
+      {
+        params: cursorOptions,
+      }
+    )
     .then(({ data }) => {
       return data;
     })

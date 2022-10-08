@@ -28,5 +28,7 @@ jobs:
           # Retry all errors, including 404. This option might trigger curl upgrade.
           retry-all: true
       - uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
       - run: yarn install
       - run: yarn test

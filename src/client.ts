@@ -186,7 +186,7 @@ class Gorse<T extends string> {
     return insertUsers(this.axiosClient, users);
   }
 
-  getUSerNeighbors(options: UserNeighborsOptions) {
+  getUserNeighbors(options: UserNeighborsOptions) {
     return getUserNeighbors(this.axiosClient, options);
   }
 }

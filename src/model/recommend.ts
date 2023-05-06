@@ -1,5 +1,4 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { GorseException } from "../error";
 import {
   LatestOutput,
   PopularOptions,
@@ -20,10 +19,6 @@ export function getPopular(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -37,10 +32,6 @@ export function getLatest(
     })
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -67,9 +58,5 @@ export function getRecommend(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }

@@ -21,6 +21,15 @@ afterAll(async () => {
   await redisClient.disconnect();
 });
 
+test("connection error", async () => {
+  const client = new Gorse({
+    endpoint: "",
+    debug: true,
+  });
+
+  await expect(client.getPopular({})).rejects.toThrow(GorseException);
+});
+
 test("test users", async () => {
   // insert a user
   let rowAffected = await client.insertUser({

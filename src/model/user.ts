@@ -1,5 +1,4 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { GorseException } from "../error";
 import {
   CursorOptions,
   Success,
@@ -14,10 +13,6 @@ export function insertUser(axios: AxiosInstance, userData: User) {
     .post<Success, AxiosResponse<Success>>(`/user`, userData)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -26,10 +21,6 @@ export function getUser(axios: AxiosInstance, userId: string) {
     .get<User, AxiosResponse<User>>(`/user/${userId}`)
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -38,10 +29,6 @@ export function deleteUser(axios: AxiosInstance, userId: string) {
     .delete<Success, AxiosResponse<Success>>(`/user/${userId}`)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -54,10 +41,6 @@ export function updateUser(
     .patch<Success, AxiosResponse<Success>>(`/user/${userId}`, userData)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -68,10 +51,6 @@ export function getUsers(axios: AxiosInstance, options?: CursorOptions) {
     })
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -81,10 +60,6 @@ export function insertUsers(axios: AxiosInstance, users: User[]) {
     .post<Success, AxiosResponse<Success>>(`/users`, users)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -98,9 +73,5 @@ export function getUserNeighbors(
     })
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }

@@ -7,6 +7,7 @@ import {
 } from "axios-logger";
 import {
   FeedbackFilter,
+  GorseException,
   ItemNeighborsOptions,
   PopularOptions,
   RecommendOptions,
@@ -78,6 +79,16 @@ class Gorse<T extends string> {
       this.axiosClient.interceptors.request.use(requestLogger, errorLogger);
       this.axiosClient.interceptors.response.use(responseLogger, errorLogger);
     }
+
+    this.axiosClient.interceptors.response.use(undefined, (error) => {
+      // HTTP errors
+      if ("response" in error) {
+        const { response } = error;
+        throw new GorseException(response.status, response.data);
+      }
+      // Network errors
+      throw new GorseException(-1, error.message);
+    });
   }
 
   // Core functions

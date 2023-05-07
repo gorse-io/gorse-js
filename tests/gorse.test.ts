@@ -21,6 +21,15 @@ afterAll(async () => {
   await redisClient.disconnect();
 });
 
+test("connection error", async () => {
+  const client = new Gorse({
+    endpoint: "",
+    debug: true,
+  });
+
+  await expect(client.getPopular({})).rejects.toThrow(GorseException);
+});
+
 test("test users", async () => {
   // insert a user
   let rowAffected = await client.insertUser({
@@ -106,4 +115,23 @@ test("test recommend", async () => {
     userId: "100",
   });
   expect(recommendedItems).toStrictEqual(["3", "2", "1"]);
+});
+
+test("test session recommend", async () => {
+  await redisClient.zAdd("item_neighbors/100", { score: 1, value: "200" });
+  const timestamp = "2022-08-07T00:26:46Z";
+  const recommendedItems = await client.getSessionRecommend([
+    {
+      FeedbackType: "like",
+      UserId: "400",
+      ItemId: "100",
+      Timestamp: timestamp,
+    },
+  ]);
+  expect(recommendedItems).toStrictEqual([
+    {
+      Id: "200",
+      Score: 1,
+    },
+  ]);
 });

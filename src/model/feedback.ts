@@ -1,5 +1,4 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { GorseException } from "../error";
 import {
   CursorOptions,
   Feedback,
@@ -23,10 +22,6 @@ export function getFeedback<T extends string>(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -40,10 +35,6 @@ export function deleteFeedback<T extends string>(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -60,10 +51,6 @@ export function getFeedbacksByType<T extends string>(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -77,10 +64,6 @@ export function getFeedbacks<T extends string>(
     })
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -92,10 +75,6 @@ export function insertFeedbacks<T extends string>(
     .post<Success, AxiosResponse<Success>>(`/feedback`, feedbacksList)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -107,10 +86,6 @@ export function upsertFeedbacks<T extends string>(
     .put<Success, AxiosResponse<Success>>(`/feedback`, feedbacksList)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 

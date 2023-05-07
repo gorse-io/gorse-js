@@ -7,9 +7,11 @@ import {
 } from "axios-logger";
 import {
   FeedbackFilter,
+  GorseException,
   ItemNeighborsOptions,
   PopularOptions,
   RecommendOptions,
+  SessionRecommendOptions,
   UserNeighborsOptions,
 } from ".";
 import {
@@ -47,7 +49,12 @@ import {
   insertUsers,
   updateUser,
 } from "./model/user";
-import { getLatest, getPopular, getRecommend } from "./model/recommend";
+import {
+  getLatest,
+  getPopular,
+  getRecommend,
+  getSessionRecommend,
+} from "./model/recommend";
 
 export { Item, User, Feedback } from "./interfaces";
 
@@ -78,6 +85,16 @@ class Gorse<T extends string> {
       this.axiosClient.interceptors.request.use(requestLogger, errorLogger);
       this.axiosClient.interceptors.response.use(responseLogger, errorLogger);
     }
+
+    this.axiosClient.interceptors.response.use(undefined, (error) => {
+      // HTTP errors
+      if ("response" in error) {
+        const { response } = error;
+        throw new GorseException(response.status, response.data);
+      }
+      // Network errors
+      throw new GorseException(-1, error.message);
+    });
   }
 
   // Core functions
@@ -92,6 +109,13 @@ class Gorse<T extends string> {
 
   getRecommend(options: RecommendOptions) {
     return getRecommend(this.axiosClient, options);
+  }
+
+  getSessionRecommend(
+    feedbackList: Feedback<T>[],
+    options: SessionRecommendOptions = {}
+  ) {
+    return getSessionRecommend(this.axiosClient, feedbackList, options);
   }
 
   // Feedback

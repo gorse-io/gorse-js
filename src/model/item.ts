@@ -1,5 +1,4 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { GorseException } from "../error";
 import {
   CursorOptions,
   Success,
@@ -13,10 +12,6 @@ export function upsertItem(axios: AxiosInstance, itemData: Item) {
     .post<Success, AxiosResponse<Success>>(`/item`, itemData)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -25,10 +20,6 @@ export function getItem(axios: AxiosInstance, itemId: string) {
     .get<Item, AxiosResponse<Item>>(`/item/${itemId}`)
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -37,10 +28,6 @@ export function deleteItem(axios: AxiosInstance, itemId: string) {
     .delete<Success, AxiosResponse<Success>>(`/item/${itemId}`)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -53,10 +40,6 @@ export function updateItem(
     .patch<Success, AxiosResponse<Success>>(`/item/${itemId}`, itemData)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -71,10 +54,6 @@ export function insertItemCategory(
     )
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -89,10 +68,6 @@ export function deleteItemCategory(
     )
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -103,10 +78,6 @@ export function getItems(axios: AxiosInstance, options?: CursorOptions) {
     })
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -115,10 +86,6 @@ export function upsertItems(axios: AxiosInstance, items: Item[]) {
     .post<Success, AxiosResponse<Success>>(`/items`, items)
     .then(({ data }) => {
       return data.RowAffected;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -135,9 +102,5 @@ export function getItemNeighbors(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }

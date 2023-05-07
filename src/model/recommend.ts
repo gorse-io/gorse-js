@@ -1,10 +1,11 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { GorseException } from "../error";
 import {
+  Feedback,
   LatestOutput,
   PopularOptions,
   PopularOutput,
   RecommendOptions,
+  SessionRecommendOptions,
 } from "../interfaces";
 
 export function getPopular(
@@ -20,10 +21,6 @@ export function getPopular(
     )
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -37,10 +34,6 @@ export function getLatest(
     })
     .then(({ data }) => {
       return data;
-    })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
     });
 }
 
@@ -67,9 +60,21 @@ export function getRecommend(
     )
     .then(({ data }) => {
       return data;
+    });
+}
+
+export function getSessionRecommend<T extends string>(
+  axios: AxiosInstance,
+  feedbackList: Feedback<T>[] = [],
+  { category = "", cursorOptions }: SessionRecommendOptions
+) {
+  return axios
+    .post(`/session/recommend/${category}`, feedbackList, {
+      params: {
+        ...cursorOptions,
+      },
     })
-    .catch((exception) => {
-      const { response } = exception;
-      return Promise.reject(new GorseException(response.status, response.data));
+    .then(({ data }) => {
+      return data;
     });
 }

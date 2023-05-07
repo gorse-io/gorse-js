@@ -11,6 +11,7 @@ import {
   ItemNeighborsOptions,
   PopularOptions,
   RecommendOptions,
+  SessionRecommendOptions,
   UserNeighborsOptions,
 } from ".";
 import {
@@ -48,7 +49,12 @@ import {
   insertUsers,
   updateUser,
 } from "./model/user";
-import { getLatest, getPopular, getRecommend } from "./model/recommend";
+import {
+  getLatest,
+  getPopular,
+  getRecommend,
+  getSessionRecommend,
+} from "./model/recommend";
 
 export { Item, User, Feedback } from "./interfaces";
 
@@ -103,6 +109,13 @@ class Gorse<T extends string> {
 
   getRecommend(options: RecommendOptions) {
     return getRecommend(this.axiosClient, options);
+  }
+
+  getSessionRecommend(
+    feedbackList: Feedback<T>[],
+    options: SessionRecommendOptions = {}
+  ) {
+    return getSessionRecommend(this.axiosClient, feedbackList, options);
   }
 
   // Feedback

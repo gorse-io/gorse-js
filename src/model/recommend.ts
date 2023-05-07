@@ -1,9 +1,11 @@
 import { AxiosInstance, AxiosResponse } from "axios";
 import {
+  Feedback,
   LatestOutput,
   PopularOptions,
   PopularOutput,
   RecommendOptions,
+  SessionRecommendOptions,
 } from "../interfaces";
 
 export function getPopular(
@@ -56,6 +58,22 @@ export function getRecommend(
         },
       }
     )
+    .then(({ data }) => {
+      return data;
+    });
+}
+
+export function getSessionRecommend<T extends string>(
+  axios: AxiosInstance,
+  feedbackList: Feedback<T>[] = [],
+  { category = "", cursorOptions }: SessionRecommendOptions
+) {
+  return axios
+    .post(`/session/recommend/${category}`, feedbackList, {
+      params: {
+        ...cursorOptions,
+      },
+    })
     .then(({ data }) => {
       return data;
     });

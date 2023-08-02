@@ -92,3 +92,23 @@ export function upsertFeedbacks<T extends string>(
 // TODO - Item Feedbacks
 
 // TODO - User Feedbacks
+
+export function userFeedbacks<T extends string>(
+  axios: AxiosInstance,
+  userId: T
+) {
+  return axios
+    .get<Success, AxiosResponse<Feedback<T>[]>>(`/user/${userId}/feedback`)
+    .then(({ data }) => data);
+}
+
+export function userFeedbackByType<T extends string>(
+  axios: AxiosInstance,
+  { userId, feedbackType }: { userId: T; feedbackType: T }
+) {
+  return axios
+    .get<Success, AxiosResponse<Feedback<T>[]>>(
+      `/user/${userId}/feedback/${feedbackType}`
+    )
+    .then(({ data }) => data);
+}

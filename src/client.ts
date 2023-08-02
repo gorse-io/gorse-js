@@ -28,6 +28,8 @@ import {
   getFeedbacksByType,
   insertFeedbacks,
   upsertFeedbacks,
+  userFeedbackByType,
+  userFeedbacks,
 } from "./model/feedback";
 import {
   deleteItem,
@@ -145,6 +147,14 @@ class Gorse<T extends string> {
 
   upsertFeedbacks(feedbacksList: Feedback<T>[]) {
     return upsertFeedbacks<T>(this.axiosClient, feedbacksList);
+  }
+
+  getUserFeedback(userId: string) {
+    return userFeedbacks(this.axiosClient, userId);
+  }
+
+  getUserFeedbackByType(userId: string, type: string) {
+    return userFeedbackByType(this.axiosClient, { userId, feedbackType: type });
   }
 
   // Item

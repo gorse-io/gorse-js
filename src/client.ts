@@ -27,6 +27,8 @@ import {
   getFeedbacks,
   getFeedbacksByType,
   insertFeedbacks,
+  itemFeedbackByType,
+  itemFeedbacks,
   upsertFeedbacks,
   userFeedbackByType,
   userFeedbacks,
@@ -149,12 +151,20 @@ class Gorse<T extends string> {
     return upsertFeedbacks<T>(this.axiosClient, feedbacksList);
   }
 
+  getItemFeedback(itemId: string) {
+    return itemFeedbacks(this.axiosClient, itemId);
+  }
+
+  getItemFeedbackByType(itemId: string, feedbackType: string) {
+    return itemFeedbackByType(this.axiosClient, { itemId, feedbackType });
+  }
+
   getUserFeedback(userId: string) {
     return userFeedbacks(this.axiosClient, userId);
   }
 
-  getUserFeedbackByType(userId: string, type: string) {
-    return userFeedbackByType(this.axiosClient, { userId, feedbackType: type });
+  getUserFeedbackByType(userId: string, feedbackType: string) {
+    return userFeedbackByType(this.axiosClient, { userId, feedbackType });
   }
 
   // Item

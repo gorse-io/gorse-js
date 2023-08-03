@@ -89,9 +89,25 @@ export function upsertFeedbacks<T extends string>(
     });
 }
 
-// TODO - Item Feedbacks
+export function itemFeedbacks<T extends string>(
+  axios: AxiosInstance,
+  itemId: T
+) {
+  return axios
+    .get<Success, AxiosResponse<Feedback<T>[]>>(`/item/${itemId}/feedback`)
+    .then(({ data }) => data);
+}
 
-// TODO - User Feedbacks
+export function itemFeedbackByType<T extends string>(
+  axios: AxiosInstance,
+  { itemId, feedbackType }: { itemId: T; feedbackType: T }
+) {
+  return axios
+    .get<Success, AxiosResponse<Feedback<T>[]>>(
+      `/item/${itemId}/feedback/${feedbackType}`
+    )
+    .then(({ data }) => data);
+}
 
 export function userFeedbacks<T extends string>(
   axios: AxiosInstance,

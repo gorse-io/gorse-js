@@ -71,6 +71,7 @@ export interface User {
   UserId: string;
   Comment?: string;
   Labels?: string[];
+  Subscribe?: string[];
 }
 
 export interface Item {

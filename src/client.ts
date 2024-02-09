@@ -196,8 +196,8 @@ class Gorse<T extends string> {
     return getItems(this.axiosClient, options);
   }
 
-  upsertItems(users: Item[]) {
-    return upsertItems(this.axiosClient, users);
+  upsertItems(items: Item[]) {
+    return upsertItems(this.axiosClient, items);
   }
 
   getItemNeighbors(options: ItemNeighborsOptions) {

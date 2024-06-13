@@ -22,6 +22,11 @@ export interface PopularOutput {
   Score: number;
 }
 
+export interface SimilarOutput {
+  Id: string;
+  Score: number;
+}
+
 export interface PopularOptions {
   category?: string;
   cursorOptions?: OffsetCursorOptions;

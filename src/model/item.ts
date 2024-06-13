@@ -5,6 +5,7 @@ import {
   Item,
   ItemCursor,
   ItemNeighborsOptions,
+  SimilarOutput,
 } from "../interfaces";
 
 export function upsertItem(axios: AxiosInstance, itemData: Item) {
@@ -94,7 +95,7 @@ export function getItemNeighbors(
   { itemId, category = "", cursorOptions }: ItemNeighborsOptions
 ) {
   return axios
-    .get<string[], AxiosResponse<string[]>>(
+    .get<SimilarOutput[], AxiosResponse<SimilarOutput[]>>(
       `/item/${itemId}/neighbors/${category}`,
       {
         params: cursorOptions,

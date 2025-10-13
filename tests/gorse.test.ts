@@ -43,7 +43,6 @@ test("test users", async () => {
   expect(user).toStrictEqual({
     UserId: "100",
     Labels: ["a", "b", "c"],
-    Subscribe: null,
     Comment: "comment",
   });
   // delete a user

@@ -9,7 +9,7 @@ import {
   FeedbackFilter,
   GorseException,
   ItemNeighborsOptions,
-  PopularOptions,
+  LatestOptions,
   RecommendOptions,
   SessionRecommendOptions,
   UserNeighborsOptions,
@@ -102,7 +102,7 @@ class Gorse<T extends string> {
 
   // Core functions
 
-  getLatest(options: PopularOptions) {
+  getLatest(options: LatestOptions) {
     return getLatest(this.axiosClient, options);
   }
 

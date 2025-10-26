@@ -55,7 +55,6 @@ import {
 } from "./model/user";
 import {
   getLatest,
-  getPopular,
   getRecommend,
   getSessionRecommend,
 } from "./model/recommend";
@@ -102,10 +101,6 @@ class Gorse<T extends string> {
   }
 
   // Core functions
-
-  getPopular(options: PopularOptions) {
-    return getPopular(this.axiosClient, options);
-  }
 
   getLatest(options: PopularOptions) {
     return getLatest(this.axiosClient, options);

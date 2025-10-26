@@ -2,31 +2,14 @@ import { AxiosInstance, AxiosResponse } from "axios";
 import {
   Feedback,
   LatestOutput,
-  PopularOptions,
-  PopularOutput,
+  LatestOptions,
   RecommendOptions,
   SessionRecommendOptions,
 } from "../interfaces";
 
-export function getPopular(
-  axios: AxiosInstance,
-  { category = "", cursorOptions }: PopularOptions
-) {
-  return axios
-    .get<PopularOutput[], AxiosResponse<PopularOutput[]>>(
-      `/popular/${category}`,
-      {
-        params: cursorOptions,
-      }
-    )
-    .then(({ data }) => {
-      return data;
-    });
-}
-
 export function getLatest(
   axios: AxiosInstance,
-  { category = "", cursorOptions }: PopularOptions
+  { category = "", cursorOptions }: LatestOptions
 ) {
   return axios
     .get<LatestOutput[], AxiosResponse<LatestOutput[]>>(`/latest/${category}`, {

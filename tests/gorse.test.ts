@@ -27,7 +27,7 @@ test("connection error", async () => {
     debug: true,
   });
 
-  await expect(client.getPopular({})).rejects.toThrow(GorseException);
+  await expect(client.getLatest({})).rejects.toThrow(GorseException);
 });
 
 test("test users", async () => {

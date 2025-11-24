@@ -11,14 +11,14 @@ import {
 
 export function getFeedback<T extends string>(
   axios: AxiosInstance,
-  { type, userId, itemId, cursorOptions }: FeedbackOptions<T>
+  { type, userId, itemId, cursorOptions }: FeedbackOptions<T>,
 ) {
   return axios
     .get<Feedback<T>, AxiosResponse<Feedback<T>>>(
       `/feedback/${type}/${userId}/${itemId}`,
       {
         params: cursorOptions,
-      }
+      },
     )
     .then(({ data }) => {
       return data;
@@ -27,27 +27,27 @@ export function getFeedback<T extends string>(
 
 export function deleteFeedback<T extends string>(
   axios: AxiosInstance,
-  { type, userId, itemId }: FeedbackFilter<T>
+  { type, userId, itemId }: FeedbackFilter<T>,
 ) {
   return axios
-    .delete<Feedback<T>, AxiosResponse<Feedback<T>>>(
-      `/feedback/${type}/${userId}/${itemId}`
+    .delete<Success, AxiosResponse<Success>>(
+      `/feedback/${type}/${userId}/${itemId}`,
     )
     .then(({ data }) => {
-      return data;
+      return data.RowAffected;
     });
 }
 
 export function getFeedbacksByType<T extends string>(
   axios: AxiosInstance,
-  { type, cursorOptions }: FeedbackTypeFilter<T>
+  { type, cursorOptions }: FeedbackTypeFilter<T>,
 ) {
   return axios
     .get<FeedbackCursor<T>, AxiosResponse<FeedbackCursor<T>>>(
       `/feedback/${type}`,
       {
         params: cursorOptions,
-      }
+      },
     )
     .then(({ data }) => {
       return data;
@@ -56,7 +56,7 @@ export function getFeedbacksByType<T extends string>(
 
 export function getFeedbacks<T extends string>(
   axios: AxiosInstance,
-  options?: CursorOptions
+  options?: CursorOptions,
 ) {
   return axios
     .get<FeedbackCursor<T>, AxiosResponse<FeedbackCursor<T>>>(`/feedback`, {
@@ -69,7 +69,7 @@ export function getFeedbacks<T extends string>(
 
 export function insertFeedbacks<T extends string>(
   axios: AxiosInstance,
-  feedbacksList: Feedback<T>[]
+  feedbacksList: Feedback<T>[],
 ) {
   return axios
     .post<Success, AxiosResponse<Success>>(`/feedback`, feedbacksList)
@@ -80,7 +80,7 @@ export function insertFeedbacks<T extends string>(
 
 export function upsertFeedbacks<T extends string>(
   axios: AxiosInstance,
-  feedbacksList: Feedback<T>[]
+  feedbacksList: Feedback<T>[],
 ) {
   return axios
     .put<Success, AxiosResponse<Success>>(`/feedback`, feedbacksList)
@@ -91,7 +91,7 @@ export function upsertFeedbacks<T extends string>(
 
 export function itemFeedbacks<T extends string>(
   axios: AxiosInstance,
-  itemId: T
+  itemId: T,
 ) {
   return axios
     .get<Success, AxiosResponse<Feedback<T>[]>>(`/item/${itemId}/feedback`)
@@ -100,18 +100,18 @@ export function itemFeedbacks<T extends string>(
 
 export function itemFeedbackByType<T extends string>(
   axios: AxiosInstance,
-  { itemId, feedbackType }: { itemId: T; feedbackType: T }
+  { itemId, feedbackType }: { itemId: T; feedbackType: T },
 ) {
   return axios
     .get<Success, AxiosResponse<Feedback<T>[]>>(
-      `/item/${itemId}/feedback/${feedbackType}`
+      `/item/${itemId}/feedback/${feedbackType}`,
     )
     .then(({ data }) => data);
 }
 
 export function userFeedbacks<T extends string>(
   axios: AxiosInstance,
-  userId: T
+  userId: T,
 ) {
   return axios
     .get<Success, AxiosResponse<Feedback<T>[]>>(`/user/${userId}/feedback`)
@@ -120,11 +120,11 @@ export function userFeedbacks<T extends string>(
 
 export function userFeedbackByType<T extends string>(
   axios: AxiosInstance,
-  { userId, feedbackType }: { userId: T; feedbackType: T }
+  { userId, feedbackType }: { userId: T; feedbackType: T },
 ) {
   return axios
     .get<Success, AxiosResponse<Feedback<T>[]>>(
-      `/user/${userId}/feedback/${feedbackType}`
+      `/user/${userId}/feedback/${feedbackType}`,
     )
     .then(({ data }) => data);
 }

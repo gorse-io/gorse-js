@@ -21,20 +21,37 @@ yarn add gorsejs
 
 ## Usage
 
-Create a client by the entrypoint and api key.
-
-```js
+```ts
 import { Gorse } from "gorsejs";
 
-const client = new Gorse({ endpoint: "http://127.0.0.1:8087", secret: "api_key" });
+const client = new Gorse({
+  endpoint: "http://127.0.0.1:8088",
+  secret: "gorse",
+});
 
+// Insert a user
+await client.insertUser({
+  UserId: "bob",
+  Labels: { role: "dev", lang: "ts" },
+  Comment: "frontend developer"
+});
+
+// Insert an item
+await client.upsertItem({
+  ItemId: "repo:vuejs/vue",
+  Categories: ["framework", "frontend"],
+  Labels: { stars: 100000 },
+  Timestamp: "2024-01-01T00:00:00Z",
+  Comment: "Vue.js repository"
+});
+
+// Insert feedback
 await client.insertFeedbacks([
-    { FeedbackType: 'star', UserId: 'bob', ItemId: 'vuejs:vue', Timestamp: '2022-02-24' },
-    { FeedbackType: 'star', UserId: 'bob', ItemId: 'd3:d3', Timestamp: '2022-02-25' },
-    { FeedbackType: 'star', UserId: 'bob', ItemId: 'dogfalo:materialize', Timestamp: '2022-02-26' },
-    { FeedbackType: 'star', UserId: 'bob', ItemId: 'mozilla:pdf.js', Timestamp: '2022-02-27' },
-    { FeedbackType: 'star', UserId: 'bob', ItemId: 'moment:moment', Timestamp: '2022-02-28' }
+  { FeedbackType: "star", UserId: "bob", ItemId: "repo:vuejs/vue", Value: 1, Timestamp: "2024-01-02T00:00:00Z", Comment: "" },
+  { FeedbackType: "star", UserId: "bob", ItemId: "repo:d3/d3", Value: 1, Timestamp: "2024-01-03T00:00:00Z", Comment: "" },
+  { FeedbackType: "star", UserId: "bob", ItemId: "repo:moment/moment", Value: 1, Timestamp: "2024-01-04T00:00:00Z", Comment: "" }
 ]);
 
-await client.getRecommend({ userId: 'bob', cursorOptions: { n: 10 } });
+// Get recommendations
+await client.getRecommend({ userId: "bob", cursorOptions: { n: 5 } });
 ```

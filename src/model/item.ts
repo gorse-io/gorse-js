@@ -2,9 +2,11 @@ import { AxiosInstance, AxiosResponse } from "axios";
 import {
   CursorOptions,
   Success,
+  Score,
   Item,
   ItemCursor,
   ItemNeighborsOptions,
+  ItemPatch,
 } from "../interfaces";
 
 export function upsertItem(axios: AxiosInstance, itemData: Item) {
@@ -34,7 +36,7 @@ export function deleteItem(axios: AxiosInstance, itemId: string) {
 export function updateItem(
   axios: AxiosInstance,
   itemId: string,
-  itemData: Item
+  itemData: ItemPatch,
 ) {
   return axios
     .patch<Success, AxiosResponse<Success>>(`/item/${itemId}`, itemData)
@@ -46,11 +48,11 @@ export function updateItem(
 export function insertItemCategory(
   axios: AxiosInstance,
   itemId: string,
-  category: string
+  category: string,
 ) {
   return axios
     .put<Success, AxiosResponse<Success>>(
-      `/item/${itemId}/category/${category}`
+      `/item/${itemId}/category/${category}`,
     )
     .then(({ data }) => {
       return data.RowAffected;
@@ -60,11 +62,11 @@ export function insertItemCategory(
 export function deleteItemCategory(
   axios: AxiosInstance,
   itemId: string,
-  category: string
+  category: string,
 ) {
   return axios
     .delete<Success, AxiosResponse<Success>>(
-      `/item/${itemId}/category/${category}`
+      `/item/${itemId}/category/${category}`,
     )
     .then(({ data }) => {
       return data.RowAffected;
@@ -91,14 +93,14 @@ export function upsertItems(axios: AxiosInstance, items: Item[]) {
 
 export function getItemNeighbors(
   axios: AxiosInstance,
-  { itemId, category = "", cursorOptions }: ItemNeighborsOptions
+  { itemId, category = "", cursorOptions }: ItemNeighborsOptions,
 ) {
   return axios
-    .get<string[], AxiosResponse<string[]>>(
+    .get<Score[], AxiosResponse<Score[]>>(
       `/item/${itemId}/neighbors/${category}`,
       {
         params: cursorOptions,
-      }
+      },
     )
     .then(({ data }) => {
       return data;

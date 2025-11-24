@@ -35,7 +35,7 @@ export function deleteUser(axios: AxiosInstance, userId: string) {
 export function updateUser(
   axios: AxiosInstance,
   userId: string,
-  userData: User
+  userData: User,
 ) {
   return axios
     .patch<Success, AxiosResponse<Success>>(`/user/${userId}`, userData)
@@ -65,7 +65,7 @@ export function insertUsers(axios: AxiosInstance, users: User[]) {
 
 export function getUserNeighbors(
   axios: AxiosInstance,
-  { userId, cursorOptions }: UserNeighborsOptions
+  { userId, cursorOptions }: UserNeighborsOptions,
 ) {
   return axios
     .get<string[], AxiosResponse<string[]>>(`/user/${userId}/neighbors`, {

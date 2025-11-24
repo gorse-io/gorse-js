@@ -14,7 +14,7 @@ These following installations are required:
 - **Docker Compose**: Start a local Gorse cluster for testing.
 
 ```bash
-docker-compose up -d
+curl -sL https://github.com/gorse-io/gorse/raw/refs/heads/master/client/setup-test.sh | bash
 ```
 
 ### Install Dependencies

@@ -1,7 +1,7 @@
 import { AxiosInstance, AxiosResponse } from "axios";
 import {
   Feedback,
-  LatestOutput,
+  Score,
   LatestOptions,
   RecommendOptions,
   SessionRecommendOptions,
@@ -9,10 +9,10 @@ import {
 
 export function getLatest(
   axios: AxiosInstance,
-  { category = "", cursorOptions }: LatestOptions
+  { category = "", cursorOptions }: LatestOptions,
 ) {
   return axios
-    .get<LatestOutput[], AxiosResponse<LatestOutput[]>>(`/latest/${category}`, {
+    .get<Score[], AxiosResponse<Score[]>>(`/latest/${category}`, {
       params: cursorOptions,
     })
     .then(({ data }) => {
@@ -28,7 +28,7 @@ export function getRecommend(
     cursorOptions,
     writeBackType,
     writeBackDelay,
-  }: RecommendOptions
+  }: RecommendOptions,
 ) {
   return axios
     .get<string[], AxiosResponse<string[]>>(
@@ -39,7 +39,7 @@ export function getRecommend(
           ...(writeBackDelay ? { "write-back-delay": writeBackDelay } : {}),
           ...cursorOptions,
         },
-      }
+      },
     )
     .then(({ data }) => {
       return data;
@@ -49,7 +49,7 @@ export function getRecommend(
 export function getSessionRecommend<T extends string>(
   axios: AxiosInstance,
   feedbackList: Feedback<T>[] = [],
-  { category = "", cursorOptions }: SessionRecommendOptions
+  { category = "", cursorOptions }: SessionRecommendOptions,
 ) {
   return axios
     .post(`/session/recommend/${category}`, feedbackList, {

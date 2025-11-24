@@ -12,7 +12,7 @@ export interface Success {
 
 export type DateTime = Date | string;
 
-export interface LatestOutput {
+export interface Score {
   Id: string;
   Score: number;
 }
@@ -65,7 +65,7 @@ export interface FeedbackOptions<T> extends FeedbackFilter<T> {
 export interface User {
   UserId: string;
   Comment?: string;
-  Labels?: string[];
+  Labels?: unknown;
 }
 
 export interface Item {
@@ -74,13 +74,18 @@ export interface Item {
   IsHidden: boolean;
   Timestamp: DateTime;
   Categories?: string[];
-  Labels?: string[];
+  Labels?: unknown;
+}
+
+export interface ItemPatch {
+  Comment?: string;
 }
 
 export interface Feedback<K extends string> {
   FeedbackType: K;
   UserId: string;
   ItemId: string;
+  Value: number;
   Timestamp: DateTime;
 }
 

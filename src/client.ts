@@ -19,6 +19,7 @@ import {
   CursorOptions,
   Feedback,
   Item,
+  ItemPatch,
   User,
 } from "./interfaces";
 import {
@@ -70,7 +71,7 @@ class Gorse<T extends string> {
       secret = `${process.env["GORSE_SECRET"]}`,
       debug,
     }: ClientOptions,
-    axiosOptons?: AxiosRequestConfig
+    axiosOptons?: AxiosRequestConfig,
   ) {
     this.axiosClient = axios.create({
       baseURL: `${endpoint}/api`,
@@ -112,7 +113,7 @@ class Gorse<T extends string> {
 
   getSessionRecommend(
     feedbackList: Feedback<T>[],
-    options: SessionRecommendOptions = {}
+    options: SessionRecommendOptions = {},
   ) {
     return getSessionRecommend(this.axiosClient, feedbackList, options);
   }
@@ -175,7 +176,7 @@ class Gorse<T extends string> {
     return deleteItem(this.axiosClient, id);
   }
 
-  updateItem(id: string, data: Item) {
+  updateItem(id: string, data: ItemPatch) {
     return updateItem(this.axiosClient, id, data);
   }
 

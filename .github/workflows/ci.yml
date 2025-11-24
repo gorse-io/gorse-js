@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup test
-        run: curl -sL https://github.com/gorse-io/gorse/raw/refs/heads/master/client/setup-test.sh | bash
+        run: curl -sL https://raw.githubusercontent.com/gorse-io/gorse/refs/heads/master/client/setup-test.sh | bash
       - uses: actions/setup-node@v3
         with:
           cache: "yarn"

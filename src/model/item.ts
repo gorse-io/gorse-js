@@ -96,7 +96,7 @@ export function getItemNeighbors(
   { itemId, category = "", cursorOptions }: ItemNeighborsOptions,
 ) {
   return axios
-    .get<string[], AxiosResponse<Score[]>>(
+    .get<Score[], AxiosResponse<Score[]>>(
       `/item/${itemId}/neighbors/${category}`,
       {
         params: cursorOptions,

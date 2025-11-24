@@ -120,7 +120,7 @@ test("test items", async () => {
 });
 
 test("test feedback", async () => {
-  client.insertUser({ UserId: "2000" });
+  await client.insertUser({ UserId: "2000" });
 
   const feedbacks = [
     {
@@ -176,7 +176,6 @@ test("test item to item", async () => {
     itemId: "1",
     cursorOptions: { n: 3 },
   });
-  console.log(neighbors);
   expect(neighbors).toHaveLength(3);
   expect(neighbors[0].Id).toBe("1060");
   expect(neighbors[1].Id).toBe("404");
@@ -184,7 +183,7 @@ test("test item to item", async () => {
 });
 
 test("test recommend", async () => {
-  client.insertUser({ UserId: "3000" });
+  await client.insertUser({ UserId: "3000" });
   const recommendations = await client.getRecommend({
     userId: "3000",
     cursorOptions: { n: 3 },

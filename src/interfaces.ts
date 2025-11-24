@@ -87,6 +87,7 @@ export interface Feedback<K extends string> {
   ItemId: string;
   Value: number;
   Timestamp: DateTime;
+  Comment?: string;
 }
 
 // Cursors

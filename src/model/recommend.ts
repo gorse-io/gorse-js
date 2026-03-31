@@ -4,7 +4,6 @@ import {
   Score,
   LatestOptions,
   RecommendOptions,
-  RecommendWithScoresOptions,
   SessionRecommendOptions,
 } from "../interfaces";
 
@@ -30,32 +29,6 @@ export function getRecommend(
     writeBackType,
     writeBackDelay,
   }: RecommendOptions,
-) {
-  return axios
-    .get<string[], AxiosResponse<string[]>>(
-      `/recommend/${userId}/${category}`,
-      {
-        params: {
-          ...(writeBackType ? { "write-back-type": writeBackType } : {}),
-          ...(writeBackDelay ? { "write-back-delay": writeBackDelay } : {}),
-          ...cursorOptions,
-        },
-      },
-    )
-    .then(({ data }) => {
-      return data;
-    });
-}
-
-export function getRecommendWithScores(
-  axios: AxiosInstance,
-  {
-    userId,
-    category = "",
-    cursorOptions,
-    writeBackType,
-    writeBackDelay,
-  }: RecommendWithScoresOptions,
 ) {
   return axios
     .get<Score[], AxiosResponse<Score[]>>(

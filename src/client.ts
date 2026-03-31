@@ -11,7 +11,6 @@ import {
   ItemNeighborsOptions,
   LatestOptions,
   RecommendOptions,
-  RecommendWithScoresOptions,
   SessionRecommendOptions,
   UserNeighborsOptions,
 } from ".";
@@ -58,7 +57,6 @@ import {
 import {
   getLatest,
   getRecommend,
-  getRecommendWithScores,
   getSessionRecommend,
 } from "./model/recommend";
 
@@ -111,10 +109,6 @@ class Gorse<T extends string> {
 
   getRecommend(options: RecommendOptions) {
     return getRecommend(this.axiosClient, options);
-  }
-
-  getRecommendWithScores(options: RecommendWithScoresOptions) {
-    return getRecommendWithScores(this.axiosClient, options);
   }
 
   getSessionRecommend(

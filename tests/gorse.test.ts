@@ -189,7 +189,7 @@ test("test recommend", async () => {
     cursorOptions: { n: 3 },
   });
   expect(recommendations).toHaveLength(3);
-  expect(recommendations[0]).toBe("315");
-  expect(recommendations[1]).toBe("1432");
-  expect(recommendations[2]).toBe("918");
+  expect(recommendations[0].Id).toBe("315");
+  expect(recommendations[1].Id).toBe("1432");
+  expect(recommendations[2].Id).toBe("918");
 });

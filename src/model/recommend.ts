@@ -31,13 +31,16 @@ export function getRecommend(
   }: RecommendOptions,
 ) {
   return axios
-    .get<string[], AxiosResponse<string[]>>(
+    .get<Score[], AxiosResponse<Score[]>>(
       `/recommend/${userId}/${category}`,
       {
         params: {
           ...(writeBackType ? { "write-back-type": writeBackType } : {}),
           ...(writeBackDelay ? { "write-back-delay": writeBackDelay } : {}),
           ...cursorOptions,
+        },
+        headers: {
+          "X-API-Version": "2",
         },
       },
     )

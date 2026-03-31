@@ -30,6 +30,7 @@ export interface RecommendOptions {
   cursorOptions?: OffsetCursorOptions;
 }
 
+
 export interface SessionRecommendOptions {
   category?: string;
   cursorOptions?: OffsetCursorOptions;

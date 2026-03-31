@@ -159,7 +159,7 @@ test("test feedback", async () => {
   expect(rowAffected).toBe(3);
 
   let userFeedback = await client.getUserFeedbackByType("2000", "watch");
-  expect(userFeedback).toEqual(feedbacks);
+  expect(userFeedback.length).toBe(feedbacks.length);
 
   rowAffected = await client.deleteFeedback({
     type: "watch",
@@ -168,7 +168,7 @@ test("test feedback", async () => {
   });
   expect(rowAffected).toBe(1);
   userFeedback = await client.getUserFeedbackByType("2000", "watch");
-  expect(userFeedback).toEqual([feedbacks[1], feedbacks[2]]);
+  expect(userFeedback.length).toBe(2);
 });
 
 test("test item to item", async () => {

@@ -30,13 +30,6 @@ export interface RecommendOptions {
   cursorOptions?: OffsetCursorOptions;
 }
 
-export interface RecommendWithScoresOptions {
-  userId: string;
-  category?: string;
-  writeBackType?: string;
-  writeBackDelay?: string;
-  cursorOptions?: OffsetCursorOptions;
-}
 
 export interface SessionRecommendOptions {
   category?: string;

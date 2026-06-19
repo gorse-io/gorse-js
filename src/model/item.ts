@@ -83,6 +83,19 @@ export function getItems(axios: AxiosInstance, options?: CursorOptions) {
     });
 }
 
+export function searchItems(axios: AxiosInstance, query: string, n: number) {
+  return axios
+    .get<ItemCursor, AxiosResponse<ItemCursor>>(`/items`, {
+      params: {
+        q: query,
+        n,
+      },
+    })
+    .then(({ data }) => {
+      return data;
+    });
+}
+
 export function upsertItems(axios: AxiosInstance, items: Item[]) {
   return axios
     .post<Success, AxiosResponse<Success>>(`/items`, items)

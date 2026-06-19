@@ -44,6 +44,7 @@ import {
   updateItem,
   getItems,
   getItemNeighbors,
+  searchItems,
 } from "./model/item";
 import {
   deleteUser,
@@ -190,6 +191,10 @@ class Gorse<T extends string> {
 
   getItems(options?: CursorOptions) {
     return getItems(this.axiosClient, options);
+  }
+
+  searchItems(query: string, n: number) {
+    return searchItems(this.axiosClient, query, n);
   }
 
   upsertItems(items: Item[]) {

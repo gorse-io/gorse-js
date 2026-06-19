@@ -119,6 +119,13 @@ test("test items", async () => {
   await expect(client.getItem("2000")).rejects.toThrow(GorseException);
 });
 
+test("test search items", async () => {
+  const resp = await client.searchItems("Toy Story", 3);
+  expect(resp.Items.length).toBeGreaterThan(0);
+  expect(resp.Items[0].ItemId).toBe("1");
+  expect(resp.Items[0].Comment).toBe("Toy Story (1995)");
+});
+
 test("test feedback", async () => {
   await client.insertUser({ UserId: "2000" });
 

@@ -1,3 +1,5 @@
 # don't lint build output (make sure it's set to your correct build folder name)
 dist
+packages/*/dist
 jest.config.js
+packages/*/jest.config.js

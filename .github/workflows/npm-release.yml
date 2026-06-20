@@ -14,12 +14,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
           cache: "yarn"
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
       - name: Publish
-        run: yarn publish
+        run: npm publish
+        working-directory: packages/gorsejs
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

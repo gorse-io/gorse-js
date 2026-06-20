@@ -18,5 +18,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: "yarn"
-      - run: yarn install
+      - run: corepack enable
+      - run: yarn install --frozen-lockfile
       - run: yarn test

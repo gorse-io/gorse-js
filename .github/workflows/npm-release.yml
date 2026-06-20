@@ -26,3 +26,8 @@ jobs:
         working-directory: packages/gorsejs
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      - name: Publish gorse-cli
+        run: npm publish
+        working-directory: packages/gorse-cli
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

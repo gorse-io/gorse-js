@@ -1,10 +1,106 @@
 name: Publish to NPM
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/*/package.json"
+  workflow_dispatch:
 jobs:
-  publish:
+  changed-packages:
     runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.changed.outputs.packages }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Find changed package versions
+        id: changed
+        shell: bash
+        env:
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+        run: |
+          node <<'NODE'
+          const cp = require("node:child_process");
+          const fs = require("node:fs");
+
+          function git(args) {
+            return cp.execFileSync("git", args, { encoding: "utf8" }).trim();
+          }
+
+          function fileAt(ref, file) {
+            try {
+              return cp.execFileSync("git", ["show", `${ref}:${file}`], {
+                encoding: "utf8",
+                stdio: ["ignore", "pipe", "ignore"],
+              }).trim();
+            } catch {
+              return null;
+            }
+          }
+
+          function npmVersionExists(name, version) {
+            try {
+              cp.execFileSync("npm", ["view", `${name}@${version}`, "version"], { stdio: "ignore" });
+              return true;
+            } catch {
+              return false;
+            }
+          }
+
+          const head = process.env.GITHUB_SHA || "HEAD";
+          let base = process.env.GITHUB_EVENT_BEFORE;
+          if (!base || /^0+$/.test(base)) {
+            base = `${head}^`;
+          }
+          try {
+            git(["cat-file", "-e", base]);
+          } catch {
+            base = git(["rev-list", "--max-parents=0", head]);
+          }
+
+          const files = git(["diff", "--name-only", base, head])
+            .split("\n")
+            .filter((file) => /^packages\/[^/]+\/package\.json$/.test(file));
+          const packages = [];
+
+          for (const file of files) {
+            const current = JSON.parse(fs.readFileSync(file, "utf8"));
+            const previousText = fileAt(base, file);
+            const previous = previousText ? JSON.parse(previousText) : null;
+
+            if (current.private || !current.name || !current.version) {
+              continue;
+            }
+            if (previous && previous.version === current.version) {
+              continue;
+            }
+            if (npmVersionExists(current.name, current.version)) {
+              console.log(`Skipping ${current.name}@${current.version}: already published.`);
+              continue;
+            }
+
+            packages.push({
+              directory: file.replace(/\/package\.json$/, ""),
+              name: current.name,
+              version: current.version,
+            });
+          }
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `packages=${JSON.stringify(packages)}\n`);
+          console.log(`Packages to publish: ${JSON.stringify(packages)}`);
+          NODE
+
+  publish:
+    needs: changed-packages
+    if: ${{ needs.changed-packages.outputs.packages != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.changed-packages.outputs.packages) }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -20,14 +116,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Build
-        run: yarn build
-      - name: Publish
+        run: yarn workspace ${{ matrix.package.name }} build
+      - name: Publish ${{ matrix.package.name }}@${{ matrix.package.version }}
         run: npm publish
-        working-directory: packages/gorsejs
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-      - name: Publish gorse-cli
-        run: npm publish
-        working-directory: packages/gorse-cli
+        working-directory: ${{ matrix.package.directory }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

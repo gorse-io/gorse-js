@@ -24,12 +24,11 @@ export interface LatestOptions {
 
 export interface RecommendOptions {
   userId: string;
-  category?: string;
+  category?: string | string[];
   writeBackType?: string;
   writeBackDelay?: string;
   cursorOptions?: OffsetCursorOptions;
 }
-
 
 export interface SessionRecommendOptions {
   category?: string;

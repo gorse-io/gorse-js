@@ -200,3 +200,23 @@ test("test recommend", async () => {
   expect(recommendations[1].Id).toBe("1432");
   expect(recommendations[2].Id).toBe("918");
 });
+
+test("test recommend with multiple categories", async () => {
+  await client.insertUser({ UserId: "4000" });
+  const recommendations = await client.getRecommend({
+    userId: "4000",
+    category: ["Drama", "Comedy"],
+    writeBackType: "recommend",
+    writeBackDelay: "1h",
+    cursorOptions: { n: 3, offset: 0 },
+  });
+  expect(recommendations).toHaveLength(3);
+  for (const recommendation of recommendations) {
+    const item = await client.getItem(recommendation.Id);
+    expect(
+      item.Categories?.some(
+        (category) => category === "Drama" || category === "Comedy",
+      ),
+    ).toBe(true);
+  }
+});

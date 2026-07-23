@@ -1,0 +1,46 @@
+{
+  "name": "gorse-cli",
+  "version": "0.5.11",
+  "description": "Command line tool for Gorse cluster management",
+  "bin": {
+    "gorse-cli": "bin/gorse-cli.js"
+  },
+  "scripts": {
+    "build": "node --check bin/gorse-cli.js",
+    "lint": "node --check bin/gorse-cli.js",
+    "lint:fix": "node --check bin/gorse-cli.js",
+    "test": "node --check bin/gorse-cli.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "optionalDependencies": {
+    "@gorse/gorse-cli-linux-x64": "0.5.11",
+    "@gorse/gorse-cli-linux-arm64": "0.5.11",
+    "@gorse/gorse-cli-linux-loong64": "0.5.11",
+    "@gorse/gorse-cli-linux-riscv64": "0.5.11",
+    "@gorse/gorse-cli-darwin-arm64": "0.5.11",
+    "@gorse/gorse-cli-win32-x64": "0.5.11",
+    "@gorse/gorse-cli-win32-arm64": "0.5.11"
+  },
+  "keywords": [
+    "gorse",
+    "gorse-cli",
+    "cli",
+    "recommendation-system"
+  ],
+  "homepage": "https://github.com/gorse-io/gorse",
+  "bugs": {
+    "url": "https://github.com/gorse-io/gorse/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorse-io/gorse-js.git",
+    "directory": "packages/gorse-cli"
+  },
+  "license": "Apache-2.0",
+  "author": "gorse Project Authors",
+  "engines": {
+    "node": ">=16"
+  }
+}

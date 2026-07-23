@@ -2,7 +2,18 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.4/schema.json",
   "changelog": "@changesets/changelog-git",
   "commit": false,
-  "fixed": [],
+  "fixed": [
+    [
+      "gorse-cli",
+      "@gorse/gorse-cli-linux-x64",
+      "@gorse/gorse-cli-linux-arm64",
+      "@gorse/gorse-cli-linux-loong64",
+      "@gorse/gorse-cli-linux-riscv64",
+      "@gorse/gorse-cli-darwin-arm64",
+      "@gorse/gorse-cli-win32-x64",
+      "@gorse/gorse-cli-win32-arm64"
+    ]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "master",

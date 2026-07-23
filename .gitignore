@@ -73,6 +73,9 @@ web_modules/
 # Output of 'npm pack'
 *.tgz
 
+# Downloaded while packaging platform-specific gorse-cli packages.
+packages/gorse-cli-*/vendor/
+
 # Yarn Integrity file
 .yarn-integrity
 

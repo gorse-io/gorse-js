@@ -1,0 +1,34 @@
+{
+  "name": "@gorse/gorse-cli-linux-arm64",
+  "version": "0.5.11",
+  "description": "gorse-cli binary for linux-arm64",
+  "files": [
+    "vendor"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/check-gorse-cli-platform.js",
+    "lint": "node ../../scripts/check-gorse-cli-platform.js",
+    "lint:fix": "node ../../scripts/check-gorse-cli-platform.js",
+    "test": "node ../../scripts/check-gorse-cli-platform.js",
+    "prepack": "node ../../scripts/download-gorse-cli.js",
+    "postpack": "node ../../scripts/cleanup-gorse-cli-platform.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorse-io/gorse-js.git",
+    "directory": "packages/gorse-cli-linux-arm64"
+  },
+  "license": "Apache-2.0",
+  "author": "gorse Project Authors",
+  "engines": {
+    "node": ">=16"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gorseTarget": {
+    "os": "linux",
+    "cpu": "arm64",
+    "asset": "gorse-cli_linux_arm64"
+  }
+}
